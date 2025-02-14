@@ -16,7 +16,7 @@ const AuthorizationPage = () => {
 
 
     const loginHandler = () => {
-        router.push("/src/app")
+        router.push("/")
     }
 
     return (
