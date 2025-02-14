@@ -5,6 +5,7 @@ import {joiResolver} from "@hookform/resolvers/joi";
 import userAuthValidator from "@/app/validators/auth.validator";
 import {IAuthForm} from "@/app/models/authorization/IAuthForm";
 import {useRouter} from "next/navigation";
+import loginWithToken from "@/app/services/auth.service";
 
 const AuthorizationPage = () => {
     const {register, formState: {errors, isValid}} = useForm<IAuthForm>({
@@ -15,7 +16,9 @@ const AuthorizationPage = () => {
     const router = useRouter();
 
 
-    const loginHandler = () => {
+    const loginHandler = async (data: FormData) => {
+        const userWithToken = await loginWithToken(data)
+        cancelIdleCallback(userWithToken);
         router.push("/")
     }
 
@@ -23,14 +26,17 @@ const AuthorizationPage = () => {
         <>
             <h1>Авторизація</h1>
             <Form action={loginHandler}>
+
                 <label>
                     <input type="text" placeholder="username" {...register("username")} />
                     {errors.username && <div>{errors.username.message}</div>}
                 </label>
+
                 <label>
                     <input type="password" placeholder="password" {...register("password")} />
                     {errors.password && <div>{errors.password.message}</div>}
                 </label>
+
                 <button disabled={!isValid}>Увійти</button>
             </Form>
         </>
