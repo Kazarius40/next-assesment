@@ -18,7 +18,7 @@ const AuthorizationPage = () => {
 
     const loginHandler = async (data: FormData) => {
         const userWithToken = await loginWithToken(data)
-        cancelIdleCallback(userWithToken);
+        console.log(userWithToken);
         router.push("/")
     }
 
