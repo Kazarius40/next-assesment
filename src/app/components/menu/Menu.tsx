@@ -4,6 +4,7 @@ const Menu = () => {
     return (
         <nav>
             <ul>
+
                 <li><Link href="/users">Користувачі</Link></li>
                 <li><Link href="/recipes">Рецепти</Link></li>
             </ul>
