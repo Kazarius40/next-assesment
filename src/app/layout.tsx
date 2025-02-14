@@ -1,6 +1,6 @@
 import type {Metadata} from "next";
 import React, {ReactNode} from "react";
-import {ClientProvider} from "@/app/components/ClientProvider";
+import Menu from "@/app/components/menu/Menu";
 
 export const metadata: Metadata = {
     title: "Next Assessment",
@@ -15,10 +15,8 @@ export default function RootLayout({children}: Props) {
     return (
         <html lang="en">
         <body>
-        <ClientProvider>
+            <Menu/>
             {children}
-        </ClientProvider>
-
         </body>
         </html>
     );

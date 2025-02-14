@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
 import userAuthValidator from "@/app/validators/auth.validator";
 import {IAuthForm} from "@/app/models/authorization/IAuthForm";
+import {useRouter} from "next/navigation";
 
 const AuthorizationPage = () => {
     const {register, formState: {errors, isValid}} = useForm<IAuthForm>({
@@ -11,9 +12,11 @@ const AuthorizationPage = () => {
         resolver: joiResolver(userAuthValidator),
     });
 
+    const router = useRouter();
+
 
     const loginHandler = () => {
-
+        router.push("/src/app")
     }
 
     return (
