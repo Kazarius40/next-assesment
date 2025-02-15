@@ -7,7 +7,7 @@ const UsersPage = () => {
     const [users, setUsers] = useState<IUser[]>([]);
 
     useEffect(() => {
-        const getUsers = async ()=> {
+        const getUsers = async () => {
             const data = await fetchUsersApi();
             const users = data.users;
             setUsers(users);

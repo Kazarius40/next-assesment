@@ -15,7 +15,6 @@ const AuthorizationPage = () => {
 
     const router = useRouter();
 
-
     const loginHandler = async (formData: FormData) => {
 
         await loginWithToken(formData);

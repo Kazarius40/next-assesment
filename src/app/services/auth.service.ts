@@ -9,8 +9,8 @@ const loginWithToken = async (data: FormData) => {
     const response = await axiosInstance.post("/auth/login", loginData);
     const {accessToken, refreshToken} = response.data;
 
-    await setCookie('accessToken', accessToken, {httpOnly: true});
-    await setCookie('refreshToken', refreshToken, {httpOnly: true});
+    await setCookie('accessToken', accessToken);
+    await setCookie('refreshToken', refreshToken);
 
     return { success: true };
 }
