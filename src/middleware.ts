@@ -1,20 +1,23 @@
 import {NextRequest, NextResponse} from "next/server";
-import {isDefaultCookiesExisted, setDefaultCookies} from "@/app/services/utils";
+import {getCookie} from "cookies-next";
 
-const middleware = async (request: NextRequest) => {
-    const response = NextResponse.next();
+export async function middleware(request: NextRequest) {
+    const accessToken = getCookie('accessToken', {req: request});
+    const requestHeaders = new Headers(request.headers);
 
-    const isAllDefaultCookiesAvailable = await isDefaultCookiesExisted();
-
-    if (!isAllDefaultCookiesAvailable) {
-        await setDefaultCookies({ req: request, res: response });
+    if (accessToken) {
+        requestHeaders.set('Authorization', `Bearer ${accessToken}`);
     }
 
-    return response;
-};
+    return NextResponse.next({
+        request: {
+            headers: requestHeaders,
+        },
+    });
+
+
+}
 
 export const config = {
     matcher: '/:path*',
 }
-
-export default middleware;
