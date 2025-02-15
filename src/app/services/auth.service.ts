@@ -6,11 +6,11 @@ const loginWithToken = async (data: FormData) => {
         username: data.get("username") as string,
         password: data.get("password") as string
     };
-    const {data: userWithTokens} = await axiosInstance.post("auth/login", loginData);
+    const response = await axiosInstance.post("auth/login", loginData);
+    const {accessToken, refreshToken} = response.data;
 
-
-    setCookie("accessToken", userWithTokens.accessToken);
-    setCookie("refreshToken", userWithTokens.refreshToken);
+    await setCookie("accessToken", accessToken);
+    await setCookie("refreshToken", refreshToken);
 }
 
 export default loginWithToken;
