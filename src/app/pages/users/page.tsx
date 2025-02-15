@@ -1,9 +1,20 @@
+"use client";
 import {fetchUsersApi} from "@/app/services/users.service";
+import {useEffect, useState} from "react";
+import {IUser} from "@/app/models/user/IUser";
 
-const UsersPage = async () => {
+const UsersPage = () => {
+    const [users, setUsers] = useState<IUser[]>([]);
 
-    const data = await fetchUsersApi();
-    const users = data.users;
+    useEffect(() => {
+        const getUsers = async ()=> {
+            const data = await fetchUsersApi();
+            const users = data.users;
+            setUsers(users);
+        };
+
+        getUsers();
+    }, []);
 
     return (
         <div>
