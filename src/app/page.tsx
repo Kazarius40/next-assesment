@@ -6,7 +6,7 @@ export default function Home() {
         <div>
             <h1>Ласкаво просимо на головну сторінку!</h1>
             <p>Для подальшої роботи з сайтом потрібно залогінитися.</p>
-            <Link href="/authorization">
+            <Link href="/pages/authorization">
                 <button>Перейти до сторінки входу</button>
             </Link>
         </div>

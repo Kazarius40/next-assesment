@@ -5,7 +5,6 @@ import {joiResolver} from "@hookform/resolvers/joi";
 import userAuthValidator from "@/app/validators/auth.validator";
 import {IAuthForm} from "@/app/models/authorization/IAuthForm";
 import {useRouter} from "next/navigation";
-import loginWithToken from "@/app/services/auth.service";
 
 const AuthorizationPage = () => {
     const {register, formState: {errors, isValid}} = useForm<IAuthForm>({
@@ -16,9 +15,10 @@ const AuthorizationPage = () => {
     const router = useRouter();
 
 
-    const loginHandler = async (data: FormData) => {
-        const userWithToken = await loginWithToken(data)
-        console.log(userWithToken);
+    const loginHandler = async (formData: FormData) => {
+        // const data = Object.fromEntries(formData.entries());
+        // await axiosInstance.post("/auth/login", data);
+
         router.push("/")
     }
 
