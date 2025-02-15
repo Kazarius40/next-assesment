@@ -3,21 +3,13 @@ import {getCookie} from "cookies-next";
 
 export async function middleware(request: NextRequest) {
     const accessToken = getCookie('accessToken', {req: request});
-    const requestHeaders = new Headers(request.headers);
 
-    if (accessToken) {
-        requestHeaders.set('Authorization', `Bearer ${accessToken}`);
+    if (request.method === 'GET') {
+        const requestHeaders = new Headers(request.headers);
+        requestHeaders.set('Authorization', "Bearer " + accessToken);
+
+        return NextResponse.next({ request: { headers: requestHeaders } });
     }
-
-    return NextResponse.next({
-        request: {
-            headers: requestHeaders,
-        },
-    });
-
-
 }
 
-export const config = {
-    matcher: '/:path*',
-}
+export const config = {matcher: '/api/:path*',}

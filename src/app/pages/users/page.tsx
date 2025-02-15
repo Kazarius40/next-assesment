@@ -5,8 +5,6 @@ const UsersPage = async () => {
     const data = await fetchUsersApi();
     const users = data.users;
 
-    console.log(users);
-
     return (
         <div>
             <h1>Список користувачів</h1>
