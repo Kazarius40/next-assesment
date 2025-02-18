@@ -1,5 +1,6 @@
 import type {Metadata} from "next";
 import React, {ReactNode} from "react";
+import {cookies} from "next/headers";
 import Menu from "@/app/components/menu/Menu";
 
 export const metadata: Metadata = {
@@ -11,12 +12,14 @@ type Props = {
     children: ReactNode;
 }
 
-export default function RootLayout({children}: Props) {
+export default async function RootLayout({children}: Props) {
+    const cookieStore = await cookies();
+    const accessToken: string | undefined = cookieStore.get('accessToken')?.value;
 
     return (
         <html lang="en">
         <body>
-        <Menu/>
+        {accessToken && <Menu/>}
         {children}
         </body>
         </html>
