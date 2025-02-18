@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getCookie} from "cookies-next";
+import {cookies} from "next/headers";
 
 
 const axiosInstance = axios.create({
@@ -7,14 +7,14 @@ const axiosInstance = axios.create({
     headers: {}
 });
 
-axiosInstance.interceptors.request.use((requestObject) => {
-    const accessToken = getCookie('accessToken');
-
-    if (accessToken && requestObject.method?.toUpperCase() === 'GET') {
-        requestObject.headers.Authorization = 'Bearer ' + accessToken;
+axiosInstance.interceptors.request.use(async (config) => {
+    const cookieStore = await cookies();
+    const accessToken: string | undefined = cookieStore.get('accessToken')?.value;
+    if (accessToken) {
+        config.headers['Authorization'] = 'Bearer ' + accessToken;
     }
-
-    return requestObject;
+    return config;
 });
+
 
 export default axiosInstance;

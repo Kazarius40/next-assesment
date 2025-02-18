@@ -1,18 +1,15 @@
+'use server';
+import {cookies} from "next/headers";
 import axiosInstance from "@/app/services/api.service";
-import {setCookie} from "cookies-next";
 
-const loginWithToken = async (data: FormData) => {
-    const loginData = {
-        username: data.get("username") as string,
-        password: data.get("password") as string
+export async function loginWithToken(data: FormData): Promise<void> {
+    const formData = {
+        username: data.get('username'),
+        password: data.get('password')
     };
-    const response = await axiosInstance.post("/auth/login", loginData);
+    const response = await axiosInstance.post('/auth/login', formData);
     const {accessToken, refreshToken} = response.data;
-
-    await setCookie('accessToken', accessToken);
-    await setCookie('refreshToken', refreshToken);
-
-    return { success: true };
+    const cookieStore = await cookies();
+    cookieStore.set('accessToken', accessToken, {httpOnly: true, secure: true, sameSite: 'strict'});
+    cookieStore.set('refreshToken', refreshToken, {httpOnly: true, secure: true, sameSite: 'strict'});
 }
-
-export default loginWithToken;

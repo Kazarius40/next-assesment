@@ -1,20 +1,7 @@
-"use client";
 import {fetchUsersApi} from "@/app/services/users.service";
-import {useEffect, useState} from "react";
-import {IUser} from "@/app/models/user/IUser";
 
-const UsersPage = () => {
-    const [users, setUsers] = useState<IUser[]>([]);
-
-    useEffect(() => {
-        const getUsers = async () => {
-            const data = await fetchUsersApi();
-            const users = data.users;
-            setUsers(users);
-        };
-
-        getUsers();
-    }, []);
+export default async function UsersPage() {
+    const {users} = await fetchUsersApi();
 
     return (
         <div>
@@ -27,5 +14,3 @@ const UsersPage = () => {
         </div>
     );
 };
-
-export default UsersPage;

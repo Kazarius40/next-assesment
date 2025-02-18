@@ -1,7 +1,7 @@
-import axiosInstance from "@/app/services/api.service";
 import {IUsers} from "@/app/models/users/IUsers";
+import axiosInstance from "@/app/services/api.service";
 
-export const fetchUsersApi = async (): Promise<IUsers> => {
-    const {data} = await axiosInstance.get<IUsers>("/auth/users");
-    return data;
-};
+export async function fetchUsersApi(): Promise<IUsers> {
+    const response = await axiosInstance.get('/auth/users');
+    return response.data;
+}

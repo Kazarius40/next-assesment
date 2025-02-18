@@ -5,21 +5,17 @@ import {joiResolver} from "@hookform/resolvers/joi";
 import userAuthValidator from "@/app/validators/auth.validator";
 import {IAuthForm} from "@/app/models/authorization/IAuthForm";
 import {useRouter} from "next/navigation";
-import loginWithToken from "@/app/services/auth.service";
+import {loginWithToken} from "@/app/services/auth.service";
 
 const AuthorizationPage = () => {
     const {register, formState: {errors, isValid}} = useForm<IAuthForm>({
-        mode: 'all',
-        resolver: joiResolver(userAuthValidator),
+        mode: 'onSubmit',
+        resolver: joiResolver(userAuthValidator)
     });
-
     const router = useRouter();
-
-    const loginHandler = async (formData: FormData) => {
-
+    const loginHandler = async (formData: FormData): Promise<void> => {
         await loginWithToken(formData);
-
-        router.push("/")
+        router.push("/");
     }
 
     return (
