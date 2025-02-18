@@ -1,12 +1,25 @@
 'use client';
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
 
 const Menu = () => {
     const pathname = usePathname();
-    console.log(pathname);
+    const router = useRouter();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (pathname !== "/") {
+            router.push("/");
+        }
+        setLoading(false);
+    }, [pathname, router]);
+
+    if (loading) return null;
+
     const hideMenu = pathname === "/";
     if (hideMenu) return null;
+
     return (
         <nav>
             <ul>
