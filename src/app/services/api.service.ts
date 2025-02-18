@@ -7,13 +7,13 @@ const axiosInstance = axios.create({
     headers: {}
 });
 
-axiosInstance.interceptors.request.use(async (config) => {
+axiosInstance.interceptors.request.use(async (endpoint) => {
     const cookieStore = await cookies();
     const accessToken: string | undefined = cookieStore.get('accessToken')?.value;
     if (accessToken) {
-        config.headers['Authorization'] = 'Bearer ' + accessToken;
+        endpoint.headers['Authorization'] = 'Bearer ' + accessToken;
     }
-    return config;
+    return endpoint;
 });
 
 

@@ -1,7 +1,8 @@
 import {fetchUsersApi} from "@/app/services/users.service";
+import {IUsers} from "@/app/models/users/IUsers";
 
 export default async function UsersPage() {
-    const {users} = await fetchUsersApi();
+    const {users}: IUsers = await fetchUsersApi();
 
     return (
         <div>
