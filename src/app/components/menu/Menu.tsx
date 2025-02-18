@@ -1,6 +1,12 @@
+'use client';
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 
 const Menu = () => {
+    const pathname = usePathname();
+    console.log(pathname);
+    const hideMenu = pathname === "/";
+    if (hideMenu) return null;
     return (
         <nav>
             <ul>
