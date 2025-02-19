@@ -11,7 +11,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(async (endpoint) => {
     const cookieStore = await cookies();
-    const accessToken: string | undefined = cookieStore.get('accessToken')?.value;
+    const userWithTokensCookie = cookieStore.get('userWithTokens')?.value;
+
+    const accessToken: string | undefined = userWithTokensCookie ? JSON.parse(userWithTokensCookie).accessToken : undefined;
     if (accessToken) {
         endpoint.headers['Authorization'] = 'Bearer ' + accessToken;
     }

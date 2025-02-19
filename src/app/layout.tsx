@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import React, {ReactNode} from "react";
 import {cookies} from "next/headers";
 import Menu from "@/app/components/menu/Menu";
+import {IUserWithToken} from "@/app/models/user-with-token/IUserWithToken";
 
 export const metadata: Metadata = {
     title: "Next Assessment",
@@ -14,12 +15,14 @@ type Props = {
 
 export default async function RootLayout({children}: Props) {
     const cookieStore = await cookies();
-    const accessToken: string | undefined = cookieStore.get('accessToken')?.value;
+    const userWithTokensCookie = cookieStore.get('userWithTokens')?.value;
+
+    const user: IUserWithToken = userWithTokensCookie ? JSON.parse(userWithTokensCookie) : null;
 
     return (
         <html lang="en">
         <body>
-        {accessToken && <Menu/>}
+        {user?.accessToken && <Menu user={user} />}
         {children}
         </body>
         </html>

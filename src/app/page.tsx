@@ -3,7 +3,9 @@ import {cookies} from "next/headers";
 
 export default async function Home() {
     const cookieStore = await cookies();
-    const accessToken: string | undefined = cookieStore.get('accessToken')?.value;
+    const userWithTokensCookie = cookieStore.get('userWithTokens')?.value;
+
+    const accessToken: string | undefined = userWithTokensCookie ? JSON.parse(userWithTokensCookie).accessToken : undefined;
 
     return (
         <>

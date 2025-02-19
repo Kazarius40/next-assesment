@@ -4,6 +4,7 @@ import {getCookie} from "cookies-next";
 import {fetchUsersApi} from "@/app/services/users.service";
 import UsersComponent from "./UsersComponent";
 import {IUser} from "@/app/models/user/IUser";
+import {refreshToken} from "@/app/services/auth.service";
 
 interface UsersContainerProps {
     page: number;
@@ -20,10 +21,13 @@ const UsersContainer: FC<UsersContainerProps> = ({page, limit, skip}) => {
             const baseEndpoint = `?limit=${limit}&skip=${skip}`;
             const finalEndpoint = searchEndpoint ? searchEndpoint + "&" + baseEndpoint : baseEndpoint;
 
-            const {users} = await fetchUsersApi(finalEndpoint);
-            setUsers(users);
+            try {
+                setUsers((await fetchUsersApi(finalEndpoint)).users);
+            } catch {
+                await refreshToken();
+                setUsers((await fetchUsersApi(finalEndpoint)).users);
+            }
         };
-
         fetchUsers().catch(console.error);
     }, [searchEndpoint, page, limit, skip]);
 
