@@ -1,15 +1,21 @@
 'use client';
-import React, {useState} from "react";
-import {setCookie} from "cookies-next";
+import React, {useEffect, useState} from "react";
+import {deleteCookie, setCookie} from "cookies-next";
+import {usePathname} from "next/navigation";
 
 const UsersSearch = () => {
     const [search, setSearch] = useState("");
+    const pathname = usePathname();
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newEndpoint = `/search?q=${event.target.value}`;
         setCookie('searchEndpoint', newEndpoint);
         setSearch(event.target.value);
     };
+
+    useEffect(() => {
+        deleteCookie('searchEndpoint');
+    }, [pathname]);
 
 
     return (
