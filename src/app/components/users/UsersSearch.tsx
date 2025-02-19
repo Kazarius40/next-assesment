@@ -9,9 +9,12 @@ const UsersSearch = () => {
     const router = useRouter();
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newEndpoint = `/search?q=${event.target.value}`;
+        const newValue = event.target.value;
+        const newEndpoint = `/search?q=${newValue}`;
+
+
         setCookie('searchEndpoint', newEndpoint);
-        setSearch(event.target.value);
+        setSearch(newValue);
         router.push('/pages/users');
     };
 

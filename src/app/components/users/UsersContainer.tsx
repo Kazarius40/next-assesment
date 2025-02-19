@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {getCookie} from "cookies-next";
 import {fetchUsersApi} from "@/app/services/users.service";
 import UsersComponent from "./UsersComponent";
@@ -11,7 +11,7 @@ interface UsersContainerProps {
     skip: number;
 }
 
-const UsersContainer: React.FC<UsersContainerProps> = ({page, limit, skip}) => {
+const UsersContainer: FC<UsersContainerProps> = ({page, limit, skip}) => {
     const [users, setUsers] = useState<IUser[]>([]);
     const searchEndpoint = getCookie("searchEndpoint");
 
@@ -22,7 +22,6 @@ const UsersContainer: React.FC<UsersContainerProps> = ({page, limit, skip}) => {
 
             const {users} = await fetchUsersApi(finalEndpoint);
             setUsers(users);
-
         };
 
         fetchUsers().catch(console.error);
