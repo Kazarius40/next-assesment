@@ -5,7 +5,6 @@ interface IUsersProps {
 }
 
 export default function UsersComponent({users}: IUsersProps) {
-    console.log("Users Component");
     return(
         <div>
             <h1>Список користувачів</h1>

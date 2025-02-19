@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 const Menu = () => {
-    console.log("Menu");
     return (
         <nav>
             <ul>

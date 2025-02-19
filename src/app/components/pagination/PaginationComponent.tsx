@@ -6,7 +6,6 @@ interface PaginationProps {
 }
 
 export default function PaginationComponent({ page, total }: PaginationProps) {
-    console.log("PaginationComponent");
     const limit = 30;
 
     return (
