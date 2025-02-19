@@ -23,6 +23,7 @@ const Menu = ({ user }: MenuProps) => {
             <ul>
                 {user && (
                     <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={user.image} alt={user.username} />
                         <span>{user.username}</span>
                     </>

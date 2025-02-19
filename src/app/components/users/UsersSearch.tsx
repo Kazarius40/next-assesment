@@ -1,11 +1,12 @@
 'use client';
 import React, {useEffect, useState} from "react";
 import {deleteCookie, setCookie} from "cookies-next";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 
 const UsersSearch = () => {
     const [search, setSearch] = useState("");
     const router = useRouter();
+    const pathname = usePathname();
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
@@ -17,16 +18,9 @@ const UsersSearch = () => {
     };
 
     useEffect(() => {
-        const handleClick = (event: MouseEvent) => {
-            if ((event.target as HTMLElement).matches("a")) {
-                deleteCookie("searchEndpoint");
-                setSearch("");
-            }
-        };
-
-        document.addEventListener("click", handleClick);
-        return () => document.removeEventListener("click", handleClick);
-    }, []);
+        deleteCookie("searchEndpoint");
+        setSearch("");
+    }, [pathname]);
 
 
     return (
