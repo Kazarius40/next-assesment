@@ -1,16 +1,15 @@
 'use client';
 import React, {useState} from "react";
+import {setCookie} from "cookies-next";
 
 const UsersSearch = () => {
     const [search, setSearch] = useState("");
-    const [endpoint, setEndpoint] = useState("");
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newEndpoint = `/search?q=${event.target.value}`;
+        setCookie('searchEndpoint', newEndpoint);
         setSearch(event.target.value);
-        setEndpoint(`/search?q=${event.target.value}`);
-
     };
-    console.log(endpoint);
 
 
     return (
