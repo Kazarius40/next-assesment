@@ -1,17 +1,24 @@
 import {fetchUsersApi} from "@/app/services/users.service";
+import UsersComponent from "@/app/components/users/UsersComponent";
+import PaginationComponent from "@/app/components/pagination/PaginationComponent";
 import {IUsers} from "@/app/models/users/IUsers";
 
-export default async function UsersPage() {
-    const {users}: IUsers = await fetchUsersApi();
+interface UsersPageProps {
+    searchParams: Promise<{ [key: string]: string | undefined }>;
+}
+
+export default async function UsersPage({searchParams}: UsersPageProps) {
+    console.log("UsersPage");
+
+    const resolvedSearchParams = (await searchParams) ?? {};
+    const page = Number(resolvedSearchParams?.page) || 1;
+
+    const {users, total}: IUsers = await fetchUsersApi(page);
 
     return (
-        <div>
-            <h1>Список користувачів</h1>
-            <ul>
-                {users.map((user) => (
-                    <li key={user.id}>{user.username}</li>
-                ))}
-            </ul>
-        </div>
+        <>
+            <PaginationComponent page={page} total={total}/>
+            <UsersComponent users={users}/>
+        </>
     );
-};
+}
