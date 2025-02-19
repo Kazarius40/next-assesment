@@ -13,7 +13,12 @@ export default async function UsersPage({searchParams}: UsersPageProps) {
     const resolvedSearchParams = (await searchParams) ?? {};
     const page = Number(resolvedSearchParams?.page) || 1;
 
-    const {users, total}: IUsers = await fetchUsersApi(page);
+    const limit = 30;
+    const skip = (page - 1) * limit;
+    const endpoint = `?limit=${limit}&skip=${skip}`;
+
+
+    const {users, total}: IUsers = await fetchUsersApi(endpoint);
 
     return (
         <>
