@@ -14,7 +14,7 @@ export default async function UsersPage({searchParams}: UsersPageProps) {
 
     const limit = 30;
     const skip = (page - 1) * limit;
-    let total = 0;
+    let total;
 
     try {
         const response = await fetchUsersApi(`?limit=1`);
