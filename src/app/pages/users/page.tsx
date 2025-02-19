@@ -2,6 +2,7 @@ import PaginationComponent from "@/app/components/pagination/PaginationComponent
 import UsersSearch from "@/app/components/users/UsersSearch";
 import UsersContainer from "@/app/components/users/UsersContainer";
 import {fetchUsersApi} from "@/app/services/users.service";
+import {refreshToken} from "@/app/services/auth.service";
 
 interface UsersPageProps {
     searchParams: Promise<{ [key: string]: string | undefined }>;
@@ -13,7 +14,17 @@ export default async function UsersPage({searchParams}: UsersPageProps) {
 
     const limit = 30;
     const skip = (page - 1) * limit;
-    const { total } = await fetchUsersApi(`?limit=1`);
+    let total = 0;
+
+    try {
+        const response = await fetchUsersApi(`?limit=1`);
+        total = response.total;
+    } catch {
+        await refreshToken();
+        const response = await fetchUsersApi(`?limit=1`);
+        total = response.total;
+    }
+
 
     return (
         <>
