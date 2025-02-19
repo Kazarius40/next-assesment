@@ -2,6 +2,7 @@ import {fetchUsersApi} from "@/app/services/users.service";
 import UsersComponent from "@/app/components/users/UsersComponent";
 import PaginationComponent from "@/app/components/pagination/PaginationComponent";
 import {IUsers} from "@/app/models/users/IUsers";
+import UsersSearch from "@/app/components/users/UsersSearch";
 
 interface UsersPageProps {
     searchParams: Promise<{ [key: string]: string | undefined }>;
@@ -23,6 +24,7 @@ export default async function UsersPage({searchParams}: UsersPageProps) {
     return (
         <>
             <PaginationComponent page={page} total={total}/>
+            <UsersSearch/>
             <UsersComponent users={users}/>
         </>
     );
