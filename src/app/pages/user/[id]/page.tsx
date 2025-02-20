@@ -53,7 +53,7 @@ export default function UserProfile() {
                     <ul>
                         {recipes.map(recipe => (
                             <li key={recipe.id}>
-                                <Link href={'/auth/recipes/' + recipe.id}>{recipe.name}</Link>
+                                <Link href={'/pages/recipe/' + recipe.id}>{recipe.name}</Link>
                             </li>
                         ))}
                     </ul>
