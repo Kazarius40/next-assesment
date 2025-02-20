@@ -1,8 +1,8 @@
 import {fetchRecipesApi} from "@/app/services/users.service";
 import {refreshToken} from "@/app/services/auth.service";
-import PaginationComponent from "@/app/components/pagination/PaginationComponent";
 import RecipesContainer from "@/app/components/recipes/RecipesContainer";
 import SearchInput from "@/app/components/search-input/SearchInput";
+import PaginationComponentRecipes from "@/app/components/recipes/pagination/PaginationComponentRecipes";
 
 interface UsersPageProps {
     searchParams: Promise<{ [key: string]: string | undefined }>;
@@ -27,7 +27,7 @@ export default async function RecipesPage({searchParams}: UsersPageProps) {
 
     return (
         <>
-            <PaginationComponent page={page} total={total}/>
+            <PaginationComponentRecipes page={page} total={total}/>
             <SearchInput/>
             <RecipesContainer page={page} limit={limit} skip={skip} />
         </>

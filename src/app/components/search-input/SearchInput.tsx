@@ -14,7 +14,8 @@ const SearchInput = () => {
 
         setCookie('searchEndpoint', newEndpoint);
         setSearch(newValue);
-        router.push('/pages/users');
+        const targetPage = pathname.startsWith('/pages/recipes') ? '/pages/recipes' : '/pages/users';
+        router.push(targetPage);
     };
 
     useEffect(() => {

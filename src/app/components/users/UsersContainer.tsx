@@ -18,6 +18,8 @@ const UsersContainer: FC<UsersContainerProps> = ({page, limit, skip}) => {
 
     useEffect(() => {
         const fetchUsers = async () => {
+
+
             const baseEndpoint = `?limit=${limit}&skip=${skip}`;
             const finalEndpoint = searchEndpoint ? searchEndpoint + "&" + baseEndpoint : baseEndpoint;
 

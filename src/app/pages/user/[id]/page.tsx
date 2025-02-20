@@ -16,13 +16,13 @@ export default function UserProfile() {
 
     useEffect(() => {
         const fetchUser = async () => {
-            let dataUser;
-            try {
-                dataUser = await fetchUsersApiByID("/" + id);
-            } catch {
-                await refreshToken();
-                dataUser = await fetchUsersApiByID("/" + id);
-            }
+                let dataUser;
+                try {
+                    dataUser = await fetchUsersApiByID("/" + id);
+                } catch {
+                    await refreshToken();
+                    dataUser = await fetchUsersApiByID("/" + id);
+                }
             const {total} = await fetchRecipesApi("?limit=1") as IRecipes;
             const recipesResponse = await fetchRecipesApi("?limit=" + total) as IRecipes;
             const userRecipes = recipesResponse.recipes.filter(recipe => recipe.id === Number(id));

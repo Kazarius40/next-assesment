@@ -1,4 +1,4 @@
-import PaginationComponent from "@/app/components/pagination/PaginationComponent";
+import PaginationComponentUsers from "@/app/components/users/pagination/PaginationComponentUsers";
 import UsersContainer from "@/app/components/users/UsersContainer";
 import {fetchUsersApi} from "@/app/services/users.service";
 import {refreshToken} from "@/app/services/auth.service";
@@ -28,7 +28,7 @@ export default async function UsersPage({searchParams}: UsersPageProps) {
 
     return (
         <>
-            <PaginationComponent page={page} total={total}/>
+            <PaginationComponentUsers page={page} total={total}/>
             <SearchInput/>
             <UsersContainer page={page} limit={limit} skip={skip} />
         </>
