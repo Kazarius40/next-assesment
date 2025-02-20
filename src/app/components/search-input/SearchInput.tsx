@@ -1,8 +1,9 @@
+'use client';
 import React, {useEffect, useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import {deleteCookie, setCookie} from "cookies-next";
 
-const RecipesSearch = () => {
+const SearchInput = () => {
     const [search, setSearch] = useState("");
     const router = useRouter();
     const pathname = usePathname();
@@ -21,17 +22,16 @@ const RecipesSearch = () => {
         setSearch("");
     }, [pathname]);
 
-
     return (
         <>
             <input
                 type="text"
-                placeholder="Введіть назву рецепта"
                 value={search}
                 onChange={handleSearch}
             />
+
         </>
-    );
+    )
 }
 
-export default RecipesSearch;
+export default SearchInput;
