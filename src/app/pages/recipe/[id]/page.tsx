@@ -1,16 +1,14 @@
 "use client";
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
-import {IUser} from "@/app/models/user/IUser";
 import {IRecipe} from "@/app/models/recipes/IRecipe";
 import {fetchRecipesApiByID} from "@/app/services/users.service";
 import {refreshToken} from "@/app/services/auth.service";
-import RecipeDetails from "@/app/components/recipe/recipe-details/RecipeDetails";
 import {RecipeAuthor} from "@/app/components/recipe/recipe-author/RecipeAuthor";
+import RecipesDetails from "@/app/components/recipe/recipe-details/RecipesDetails";
 
 export default function RecipeProfile() {
     const {id} = useParams();
-    const [user, setUser] = useState<IUser | null>(null);
     const [recipe, setRecipe] = useState<IRecipe | null>(null);
 
 
@@ -35,7 +33,7 @@ export default function RecipeProfile() {
 
     return (
         <>
-            <RecipeDetails recipe={recipe}/>
+            <RecipesDetails recipe={recipe}/>
             <RecipeAuthor authorId={recipe.userId}/>
         </>
     )

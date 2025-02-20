@@ -1,11 +1,11 @@
 import Link from "next/link";
 import {IRecipe} from "@/app/models/recipes/IRecipe";
 
-type RecipeDetails = {
+type RecipesDetails = {
     recipe: IRecipe;
 }
 
-const RecipeDetails = ({recipe}: RecipeDetails) => {
+const RecipesDetails = ({recipe}: RecipesDetails) => {
     return (
         <div>
             <h2>{recipe.name}</h2>
@@ -26,4 +26,4 @@ const RecipeDetails = ({recipe}: RecipeDetails) => {
     )
 }
 
-export default RecipeDetails;
+export default RecipesDetails;

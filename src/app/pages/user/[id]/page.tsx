@@ -25,7 +25,7 @@ export default function UserProfile() {
                 }
             const {total} = await fetchRecipesApi("?limit=1") as IRecipes;
             const recipesResponse = await fetchRecipesApi("?limit=" + total) as IRecipes;
-            const userRecipes = recipesResponse.recipes.filter(recipe => recipe.id === Number(id));
+            const userRecipes = recipesResponse.recipes.filter(recipe => recipe.userId === Number(id));
             setRecipes(userRecipes);
 
             setUser(dataUser);
