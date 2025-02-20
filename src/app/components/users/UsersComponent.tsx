@@ -21,7 +21,7 @@ export default function UsersComponent({users}: IUsersProps) {
                         <p>
                             <strong>E-Mail:</strong> {user.email}
                         </p>
-                        <Link href={`/auth/users/${user.id}`}>Переглянути профіль</Link>
+                        <Link href={`/pages/user/${user.id}`}>Переглянути профіль</Link>
                     </li>
                 ))}
             </ul>
