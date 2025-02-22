@@ -7,7 +7,10 @@ import {IUserWithToken} from "@/app/models/user-with-token/IUserWithToken";
 
 export async function loginWithToken(data: FormData): Promise<void> {
     const formData = {username: data.get('username'), password: data.get('password')};
-    const {data: userWithTokens} = await axiosInstance.post('/auth/login', formData);
+    const {data: userWithTokens} = await axiosInstance.post('/auth/login', {
+        ...formData,
+        expiresInMins: 1
+    });
     const cookieStore = await cookies();
     cookieStore.set('userWithTokens', JSON.stringify(userWithTokens), {
         httpOnly: true,
@@ -24,7 +27,7 @@ export async function refreshToken(): Promise<void> {
         const storedUserWithTokens: IUserWithToken = JSON.parse(userWithTokensCookie);
         const {refreshToken} = storedUserWithTokens;
 
-        const {data: newTokens} = await axiosInstance.post<ITokensPair>('/auth/refresh', {refreshToken});
+        const {data: newTokens} = await axiosInstance.post<ITokensPair>('/auth/refresh', {refreshToken, expiresInMins: 1});
 
         cookieStore.set('userWithTokens', JSON.stringify({
             ...storedUserWithTokens,
