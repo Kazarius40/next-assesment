@@ -12,7 +12,8 @@ export async function loginWithToken(data: FormData): Promise<void> {
     cookieStore.set('userWithTokens', JSON.stringify(userWithTokens), {
         httpOnly: true,
         secure: true,
-        sameSite: 'strict'
+        sameSite: 'strict',
+        maxAge: 60
     });
 }
 
@@ -30,11 +31,11 @@ export async function refreshToken(): Promise<void> {
             ...storedUserWithTokens,
             accessToken: newTokens.accessToken,
             refreshToken: newTokens.refreshToken
-        }), {httpOnly: true, secure: true, sameSite: 'strict'});
+        }), {httpOnly: true, secure: true, sameSite: 'strict', maxAge: 60});
     }
 }
 
 export async function logout() {
     const cookieStore = await cookies();
-    cookieStore.set("userWithTokens", "", {httpOnly: true, secure: true, sameSite: "strict"});
+    cookieStore.set("userWithTokens", "", {httpOnly: true, secure: true, sameSite: "strict", maxAge: 60});
 }

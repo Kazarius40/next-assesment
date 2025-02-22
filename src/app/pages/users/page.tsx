@@ -1,3 +1,4 @@
+'use server';
 import PaginationComponentUsers from "@/app/components/users/pagination/PaginationComponentUsers";
 import UsersContainer from "@/app/components/users/UsersContainer";
 import {fetchUsersApi} from "@/app/services/users.service";
