@@ -2,20 +2,19 @@
 import {useEffect, useState} from "react";
 import {useParams} from "next/navigation";
 import {IRecipe} from "@/app/models/recipes/IRecipe";
-import {fetchRecipesApi} from "@/app/services/users.service";
+import {fetchUsersApi} from "@/app/services/users.service";
 import {IRecipes} from "@/app/models/recipes/IRecipes";
 import Link from "next/link";
 
 export default function TagProfile() {
     const params = useParams();
     const tag = params?.tag as string;
-    console.log(tag);
     const [recipes, setRecipes] = useState<IRecipe[]>([]);
 
     useEffect(() => {
         const fetchRecipes = async () => {
-            const {total} = await fetchRecipesApi("?limit=1") as IRecipes;
-            const {recipes} = await fetchRecipesApi("?limit=" + total) as IRecipes;
+            const {total} = await fetchUsersApi("/auth/recipes?limit=1") as IRecipes;
+            const {recipes} = await fetchUsersApi("/auth/recipes?limit=" + total) as IRecipes;
             const filteredRecipes = recipes.filter((recipe: IRecipe) => recipe.tags.includes(tag));
             setRecipes(filteredRecipes);
         }

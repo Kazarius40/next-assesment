@@ -18,11 +18,14 @@ export default async function UsersPage({searchParams}: UsersPageProps) {
     let total;
 
     try {
-        const response = await fetchUsersApi(`?limit=1`);
+        const response = await fetchUsersApi(`/users?limit=1`);
+
+
+
         total = response.total;
     } catch {
         await refreshToken();
-        const response = await fetchUsersApi(`?limit=1`);
+        const response = await fetchUsersApi(`/users?limit=1`);
         total = response.total;
     }
 

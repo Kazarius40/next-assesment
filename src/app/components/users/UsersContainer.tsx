@@ -13,8 +13,11 @@ interface UsersContainerProps {
 }
 
 const UsersContainer: FC<UsersContainerProps> = ({page, limit, skip}) => {
+
+
     const [users, setUsers] = useState<IUser[]>([]);
     const searchEndpoint = getCookie("searchEndpoint");
+    console.log("searchEndpoint:", searchEndpoint);
 
     useEffect(() => {
         const fetchUsers = async () => {

@@ -1,8 +1,8 @@
 'use client';
 import {useEffect, useState} from "react";
 import {IUser} from "@/app/models/user/IUser";
-import {fetchUsersApiByID} from "@/app/services/users.service";
 import Link from "next/link";
+import {fetchUsersApi} from "@/app/services/users.service";
 
 interface IRecipeAuthorProps {
     authorId: number;
@@ -15,7 +15,7 @@ export function RecipeAuthor({authorId}: IRecipeAuthorProps) {
 
     useEffect(() => {
         const fetchAuthor = async () => {
-            const data = await fetchUsersApiByID(`/${authorId}`);
+            const data = await fetchUsersApi(`/auth/users/${authorId}`);
             setAuthor(data);
         };
 
