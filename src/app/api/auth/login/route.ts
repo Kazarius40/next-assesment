@@ -10,22 +10,22 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
-    try {
-        const { data: userWithTokens } = await axiosInstance.post('/auth/login', {
-            username,
-            password,
-            expiresInMins: 1
-        });
+    const {data: userWithTokens} = await axiosInstance.post('/auth/login', {
+        username,
+        password,
+        expiresInMins: 1
+    });
 
-        const cookieStore = await cookies();
-        cookieStore.set('userWithTokens', JSON.stringify(userWithTokens), {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'strict',
-        });
+    const {accessToken, refreshToken, ...userData} = userWithTokens;
+    const cookieStore = await cookies();
 
-        return NextResponse.json(userWithTokens);
-    } catch {
-        return new NextResponse('Login failed', { status: 500 });
-    }
+    cookieStore.set('authTokens', JSON.stringify({accessToken, refreshToken}), {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict'
+    });
+
+    cookieStore.set("userData", JSON.stringify(userData));
+
+    return NextResponse.json(userData);
 }

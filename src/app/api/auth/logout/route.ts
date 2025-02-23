@@ -1,13 +1,17 @@
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import {NextResponse} from 'next/server';
+import {cookies} from 'next/headers';
 
 export async function POST(): Promise<NextResponse> {
     const cookieStore = await cookies();
-    cookieStore.set('userWithTokens', '', {
+
+    cookieStore.set('authTokens', '', {
         httpOnly: true,
         secure: true,
         sameSite: 'strict',
+        maxAge: -1,
     });
 
-    return NextResponse.json({ message: 'Logged out successfully' });
+    cookieStore.set('userData', '', {maxAge: -1});
+
+    return NextResponse.redirect('/');
 }

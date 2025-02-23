@@ -6,6 +6,6 @@ export interface IUserWithToken {
   lastName: string;
   gender: string;
   image: string;
-  accessToken: string;
-  refreshToken: string;
+  accessToken?: string;
+  refreshToken?: string;
 }

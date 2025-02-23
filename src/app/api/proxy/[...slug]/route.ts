@@ -21,8 +21,6 @@ export async function GET(req: NextRequest, context: { params: { slug: string[] 
     const endpoint = searchParams ? `/${path}${searchParams}` : `/${path}`;
 
     const {data} = await axiosInstance.get<ApiResponse>(endpoint);
-    console.log("Це є data:", data);
-    console.log("NextResponse:", NextResponse.json(data));
 
     return NextResponse.json(data);
 }

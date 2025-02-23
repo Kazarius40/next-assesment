@@ -1,15 +1,23 @@
+'use client';
 import Link from "next/link";
-import {cookies} from "next/headers";
+import {getCookie} from "cookies-next";
+import {useEffect, useState} from "react";
+import {IUserWithToken} from "@/app/models/user-with-token/IUserWithToken";
 
-export default async function Home() {
-    const cookieStore = await cookies();
-    const userWithTokensCookie = cookieStore.get('userWithTokens')?.value;
+export default function Home() {
+    const [userData, setUserData] = useState<IUserWithToken | null>(null);
 
-    const accessToken: string | undefined = userWithTokensCookie ? JSON.parse(userWithTokensCookie).accessToken : undefined;
+    useEffect(() => {
+        const userDataCookie = getCookie("userData");
+        if (userDataCookie) {
+            setUserData(JSON.parse(userDataCookie as string));
+        }
+    }, []);
+
 
     return (
         <>
-            {!accessToken && <>
+            {!userData && <>
                 <h1>Ласкаво просимо на головну сторінку!</h1>
                 <p>Для подальшої роботи з сайтом потрібно залогінитися.</p>
                 <Link href="/pages/authorization">

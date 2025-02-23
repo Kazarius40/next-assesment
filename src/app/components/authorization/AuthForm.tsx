@@ -1,3 +1,4 @@
+'use client';
 import Form from "next/form";
 import {useForm} from "react-hook-form";
 import {IAuthForm} from "@/app/models/authorization/IAuthForm";
@@ -5,6 +6,7 @@ import {joiResolver} from "@hookform/resolvers/joi";
 import userAuthValidator from "@/app/validators/auth.validator";
 import {useRouter} from "next/navigation";
 import {loginWithToken} from "@/app/services/auth.service";
+import React from "react";
 
 export const AuthForm = () => {
     const {register, formState: {errors, isValid}} = useForm<IAuthForm>({

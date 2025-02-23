@@ -6,7 +6,7 @@ interface IUsersProps {
 }
 
 export default function UsersComponent({users}: IUsersProps) {
-    console.log("Я вже тут?");
+
     console.log(users);
     return(
         <div>

@@ -7,33 +7,24 @@ import {ITokensPair} from "@/app/models/tokens-pair/ITokensPair";
 
 export async function POST(): Promise<NextResponse> {
     const cookieStore = await cookies();
-    const userWithTokensCookie = cookieStore.get('userWithTokens')?.value;
+    const authTokensCookie = cookieStore.get('authTokens')?.value;
 
-    if (!userWithTokensCookie) {
-        return new NextResponse('No refresh token found', { status: 400 });
+    if (!authTokensCookie) {
+        return new NextResponse('No refresh token found', {status: 400});
     }
 
-    const storedUserWithTokens: IUserWithToken = JSON.parse(userWithTokensCookie);
-    const { refreshToken } = storedUserWithTokens;
+    const {refreshToken }: IUserWithToken = JSON.parse(authTokensCookie);
 
-    try {
-        const { data: newTokens }: { data: ITokensPair } = await axiosInstance.post('/auth/refresh', {
-            refreshToken,
-            expiresInMins: 1
-        });
+    const {data: newTokens}: { data: ITokensPair } = await axiosInstance.post('/auth/refresh', {
+        refreshToken,
+        expiresInMins: 1
+    });
 
-        cookieStore.set('userWithTokens', JSON.stringify({
-            ...storedUserWithTokens,
-            accessToken: newTokens.accessToken,
-            refreshToken: newTokens.refreshToken,
-        }), {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'strict',
-        });
+    cookieStore.set('authTokens', JSON.stringify(newTokens), {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+    });
 
-        return NextResponse.json(newTokens);
-    } catch {
-        return new NextResponse('Failed to refresh token', { status: 500 });
-    }
+    return NextResponse.json(newTokens);
 }

@@ -17,13 +17,12 @@ const UsersContainer: FC<UsersContainerProps> = ({page, limit, skip}) => {
 
     const [users, setUsers] = useState<IUser[]>([]);
     const searchEndpoint = getCookie("searchEndpoint");
-    console.log("searchEndpoint:", searchEndpoint);
 
     useEffect(() => {
         const fetchUsers = async () => {
 
 
-            const baseEndpoint = `?limit=${limit}&skip=${skip}`;
+            const baseEndpoint = `/auth/users?limit=${limit}&skip=${skip}`;
             const finalEndpoint = searchEndpoint ? searchEndpoint + "&" + baseEndpoint : baseEndpoint;
 
             try {
