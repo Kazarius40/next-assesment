@@ -1,8 +1,8 @@
+import {fetchRecipesApi} from "@/app/services/users.service";
 import {refreshToken} from "@/app/services/auth.service";
 import RecipesContainer from "@/app/components/recipes/RecipesContainer";
 import SearchInput from "@/app/components/search-input/SearchInput";
 import PaginationComponentRecipes from "@/app/components/recipes/pagination/PaginationComponentRecipes";
-import {fetchUsersApi} from "@/app/services/users.service";
 
 interface UsersPageProps {
     searchParams: Promise<{ [key: string]: string | undefined }>;
@@ -17,11 +17,11 @@ export default async function RecipesPage({searchParams}: UsersPageProps) {
     let total;
 
     try {
-        const response = await fetchUsersApi(`/auth/recipes?limit=1`);
+        const response = await fetchRecipesApi(`?limit=1`);
         total = response.total;
     } catch {
         await refreshToken();
-        const response = await fetchUsersApi(`/auth/recipes?limit=1`);
+        const response = await fetchRecipesApi(`?limit=1`);
         total = response.total;
     }
 

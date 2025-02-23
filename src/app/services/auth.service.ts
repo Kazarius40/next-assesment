@@ -1,27 +1,50 @@
-import {setCookie} from "cookies-next";
+'use server';
+import {cookies} from "next/headers";
+import {ITokensPair} from "@/app/models/tokens-pair/ITokensPair";
+import {IUserWithToken} from "@/app/models/user-with-token/IUserWithToken";
+import axiosInstanceRefresh from "@/app/services/refresh.service";
+
 
 export async function loginWithToken(data: FormData): Promise<void> {
-    await fetch('http://localhost:3000/api/auth/login', {
+    const formData = {username: data.get('username'), password: data.get('password')};
+
+
+    const response = await fetch('http://localhost:3000/api/login', {
         method: 'POST',
-        body: data,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
     });
-    window.location.reload();
+
+    const {userWithTokens} = await response.json();
+
+    const cookieStore = await cookies();
+    cookieStore.set('userWithTokens', JSON.stringify(userWithTokens));
 }
 
 
 export async function refreshToken(): Promise<void> {
-    await fetch('http://localhost:3000/api/auth/refresh', {
-        method: 'POST',
-    });
+    const cookieStore = await cookies();
+    const userWithTokensCookie = cookieStore.get('userWithTokens')?.value;
+
+    if (userWithTokensCookie) {
+        const userWithTokens: IUserWithToken = JSON.parse(userWithTokensCookie);
+        const {refreshToken} = userWithTokens;
+
+        const {data: newTokens} = await axiosInstanceRefresh.post<ITokensPair>('/auth/refresh', {refreshToken});
+
+        const updatedUserWithTokens = {
+            ...userWithTokens,
+            accessToken: newTokens.accessToken,
+            refreshToken: newTokens.refreshToken,
+        };
+
+        cookieStore.set('userWithTokens', JSON.stringify(updatedUserWithTokens));
+    }
 }
 
-
-export async function logout(): Promise<void> {
-    await fetch('http://localhost:3000/api/auth/logout', {
-        method: 'POST',
-    });
-
-    setCookie('userData', '', { maxAge: -1 });
-
-    window.location.reload();
+export async function logout() {
+    const cookieStore = await cookies();
+    cookieStore.set("userWithTokens", "");
 }

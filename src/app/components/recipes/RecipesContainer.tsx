@@ -1,7 +1,7 @@
 'use client';
 import {FC, useEffect, useState} from "react";
 import {getCookie} from "cookies-next";
-import {fetchUsersApi} from "@/app/services/users.service";
+import {fetchRecipesApi} from "@/app/services/users.service";
 import {refreshToken} from "@/app/services/auth.service";
 import {IRecipe} from "@/app/models/recipes/IRecipe";
 import RecipesComponent from "@/app/components/recipes/RecipesComponent";
@@ -20,14 +20,14 @@ const RecipesContainer: FC<UsersContainerProps> = ({page, limit, skip}) => {
         const fetchRecipes = async () => {
 
 
-            const baseEndpoint = `/auth/recipes?limit=${limit}&skip=${skip}`;
+            const baseEndpoint = `?limit=${limit}&skip=${skip}`;
             const finalEndpoint = searchEndpoint ? searchEndpoint + "&" + baseEndpoint : baseEndpoint;
 
             try {
-                setRecipes((await fetchUsersApi(finalEndpoint)).recipes);
+                setRecipes((await fetchRecipesApi(finalEndpoint)).recipes);
             } catch {
                 await refreshToken();
-                setRecipes((await fetchUsersApi(finalEndpoint)).recipes);
+                setRecipes((await fetchRecipesApi(finalEndpoint)).recipes);
             }
         };
         fetchRecipes().catch(console.error);

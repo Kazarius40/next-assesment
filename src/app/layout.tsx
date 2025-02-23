@@ -15,14 +15,14 @@ type Props = {
 
 export default async function RootLayout({children}: Props) {
     const cookieStore = await cookies();
-    const userDataCookie = cookieStore.get('userData')?.value;
+    const userWithTokensCookie = cookieStore.get('userWithTokens')?.value;
 
-    const user: IUserWithToken = userDataCookie ? JSON.parse(userDataCookie) : null;
+    const user: IUserWithToken = userWithTokensCookie ? JSON.parse(userWithTokensCookie) : null;
 
     return (
         <html lang="en">
         <body>
-        {user && <Menu user={user} />}
+        {user?.accessToken && <Menu user={user} />}
         {children}
         </body>
         </html>

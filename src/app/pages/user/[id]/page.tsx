@@ -2,7 +2,7 @@
 import {useParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import {IUser} from "@/app/models/user/IUser";
-import {fetchUsersApi} from "@/app/services/users.service";
+import {fetchRecipesApi, fetchUsersApiByID} from "@/app/services/users.service";
 import {refreshToken} from "@/app/services/auth.service";
 import {IRecipe} from "@/app/models/recipes/IRecipe";
 import Link from "next/link";
@@ -18,13 +18,13 @@ export default function UserProfile() {
         const fetchUser = async () => {
                 let dataUser;
                 try {
-                    dataUser = await fetchUsersApi("/auth/users/" + id);
+                    dataUser = await fetchUsersApiByID("/" + id);
                 } catch {
                     await refreshToken();
-                    dataUser = await fetchUsersApi("/auth/users/" + id);
+                    dataUser = await fetchUsersApiByID("/" + id);
                 }
-            const {total} = await fetchUsersApi("/auth/recipes?limit=1") as IRecipes;
-            const recipesResponse = await fetchUsersApi("/auth/recipes?limit=" + total) as IRecipes;
+            const {total} = await fetchRecipesApi("?limit=1") as IRecipes;
+            const recipesResponse = await fetchRecipesApi("?limit=" + total) as IRecipes;
             const userRecipes = recipesResponse.recipes.filter(recipe => recipe.userId === Number(id));
             setRecipes(userRecipes);
 

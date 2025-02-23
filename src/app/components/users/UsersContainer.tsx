@@ -13,8 +13,6 @@ interface UsersContainerProps {
 }
 
 const UsersContainer: FC<UsersContainerProps> = ({page, limit, skip}) => {
-
-
     const [users, setUsers] = useState<IUser[]>([]);
     const searchEndpoint = getCookie("searchEndpoint");
 
@@ -22,7 +20,7 @@ const UsersContainer: FC<UsersContainerProps> = ({page, limit, skip}) => {
         const fetchUsers = async () => {
 
 
-            const baseEndpoint = `/auth/users?limit=${limit}&skip=${skip}`;
+            const baseEndpoint = `?limit=${limit}&skip=${skip}`;
             const finalEndpoint = searchEndpoint ? searchEndpoint + "&" + baseEndpoint : baseEndpoint;
 
             try {

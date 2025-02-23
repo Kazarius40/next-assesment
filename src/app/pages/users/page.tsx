@@ -1,4 +1,3 @@
-'use server';
 import PaginationComponentUsers from "@/app/components/users/pagination/PaginationComponentUsers";
 import UsersContainer from "@/app/components/users/UsersContainer";
 import {fetchUsersApi} from "@/app/services/users.service";
@@ -18,14 +17,11 @@ export default async function UsersPage({searchParams}: UsersPageProps) {
     let total;
 
     try {
-        const response = await fetchUsersApi(`/auth/users?limit=1`);
-
-
-
+        const response = await fetchUsersApi(`?limit=1`);
         total = response.total;
     } catch {
         await refreshToken();
-        const response = await fetchUsersApi(`/auth/users?limit=1`);
+        const response = await fetchUsersApi(`?limit=1`);
         total = response.total;
     }
 
