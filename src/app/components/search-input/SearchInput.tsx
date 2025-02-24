@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import {deleteCookie, setCookie} from "cookies-next";
+import './SearchInput.css'
 
 const SearchInput = () => {
     const [search, setSearch] = useState("");
@@ -24,14 +25,14 @@ const SearchInput = () => {
     }, [pathname]);
 
     return (
-        <>
+        <div className="search-container">
             <input
                 type="text"
                 value={search}
                 onChange={handleSearch}
             />
 
-        </>
+        </div>
     )
 }
 

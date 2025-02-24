@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {IRecipe} from "@/app/models/recipes/IRecipe";
+import './RecipesDetails.css'
 
 type RecipesDetails = {
     recipe: IRecipe;

@@ -1,0 +1,16 @@
+.auth-page {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.auth-page h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}

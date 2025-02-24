@@ -5,6 +5,7 @@ import {joiResolver} from "@hookform/resolvers/joi";
 import userAuthValidator from "@/app/validators/auth.validator";
 import {useRouter} from "next/navigation";
 import {loginWithToken} from "@/app/services/auth.service";
+import './AuthForm.css'
 
 export const AuthForm = () => {
     const {register, formState: {errors, isValid}} = useForm<IAuthForm>({
@@ -17,7 +18,7 @@ export const AuthForm = () => {
         router.push("/");
     }
     return (
-        <>
+        <div className="auth-container">
             <Form action={loginHandler}>
 
                 <label>
@@ -32,6 +33,6 @@ export const AuthForm = () => {
 
                 <button disabled={!isValid}>Увійти</button>
             </Form>
-        </>
+        </div>
     );
 };

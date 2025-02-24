@@ -1,5 +1,6 @@
 import {IUser} from "@/app/models/user/IUser";
 import Link from "next/link";
+import './UsersComponent.css'
 
 interface IUsersProps {
     users: IUser[];

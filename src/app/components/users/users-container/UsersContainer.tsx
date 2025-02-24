@@ -2,7 +2,7 @@
 import React, {FC, useEffect, useState} from "react";
 import {getCookie} from "cookies-next";
 import {fetchUsersApi} from "@/app/services/users.service";
-import UsersComponent from "./UsersComponent";
+import UsersComponent from "../users-component/UsersComponent";
 import {IUser} from "@/app/models/user/IUser";
 import {refreshToken} from "@/app/services/auth.service";
 

@@ -4,7 +4,7 @@ import {getCookie} from "cookies-next";
 import {fetchRecipesApi} from "@/app/services/users.service";
 import {refreshToken} from "@/app/services/auth.service";
 import {IRecipe} from "@/app/models/recipes/IRecipe";
-import RecipesComponent from "@/app/components/recipes/RecipesComponent";
+import RecipesComponent from "@/app/components/recipes/recipes-component/RecipesComponent";
 
 interface UsersContainerProps {
     page: number;

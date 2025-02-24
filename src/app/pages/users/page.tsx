@@ -1,5 +1,5 @@
 import PaginationComponentUsers from "@/app/components/users/pagination/PaginationComponentUsers";
-import UsersContainer from "@/app/components/users/UsersContainer";
+import UsersContainer from "@/app/components/users/users-container/UsersContainer";
 import {fetchUsersApi} from "@/app/services/users.service";
 import {refreshToken} from "@/app/services/auth.service";
 import SearchInput from "@/app/components/search-input/SearchInput";
